@@ -1,5 +1,5 @@
 """
-Pashimitra AI Microservice - FastAPI v4.0
+Jeeva AI Microservice - FastAPI v4.0
 Karnataka Govt Livestock AI Decision Support
 
 Rules enforced on every uploaded photo:
@@ -26,7 +26,7 @@ ARTIFACTS = BASE / "model_artifacts"
 
 import os
 
-app = FastAPI(title="Pashimitra AI Service", version="4.0.0")
+app = FastAPI(title="Jeeva AI Service", version="4.0.0")
 app.add_middleware(CORSMiddleware,
     allow_origins=[
         "http://localhost:5000","http://localhost:5173",
@@ -51,7 +51,7 @@ mobilenet_input   = mobilenet_session.get_inputs()[0].name
 with open(ARTIFACTS / "imagenet_labels.json") as f:
     IMAGENET_LABELS = json.load(f)
 
-print("All models loaded - Pashimitra AI v4.0")
+print("All models loaded - Jeeva AI v4.0")
 
 # ── ImageNet indices ──────────────────────────────────────────────────────────
 SPECIES_INDICES = {
@@ -565,7 +565,7 @@ async def predict_heat(
            f"Best AI window: {cycle.get('best_ai_window','N/A')}\n"
            f"Heat duration: {cycle.get('heat_duration_hours','N/A')}\n"
            f"Ovulation: {cycle.get('ovulation_after_heat_hours','N/A')}\n"
-           f"Book AI service immediately via Pashimitra."
+           f"Book AI service immediately via Jeeva."
     ) if is_heat else (
            f"NO HEAT DETECTED - {species.upper()} | Confidence: {round((1-final_prob)*100,1)}%\n"
            f"Next expected heat: ~{cycle.get('cycle_length_days',21)} days\n"

@@ -1,16 +1,72 @@
-# React + Vite
+# 🌱 Jeeva — Frontend
+### React + Vite | Karnataka Govt AI Livestock Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Stack
+- React 19.2
+- Vite 8
+- React Router DOM 7
+- Axios
+- Recharts (analytics)
+- jsPDF (report download)
+- react-hot-toast
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Setup
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Create `.env`:
+```
+VITE_API_URL=http://localhost:5000/api
+```
 
-## Expanding the ESLint configuration
+```bash
+npm run dev       # http://localhost:5173
+npm run build     # production build → dist/
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Pages
+
+### Farmer
+| Page | Description |
+|------|-------------|
+| Dashboard | Animal summary, recent predictions |
+| Animals | Add/edit livestock |
+| Heat Detection | 3-stage AI heat detection with factor report |
+| Health Check | 3-stage AI infection screening with factor report |
+| Appointments | Book & track AI insemination |
+| Milk Tracker | Daily milk production log |
+| Vaccination | Vaccination records |
+| Animal History | Full prediction & health history |
+| Analytics | Charts & trends |
+
+### AI Centre
+| Page | Description |
+|------|-------------|
+| Dashboard | Alerts summary |
+| Appointments | Manage farmer appointments |
+| Alerts | Paginated heat & infection alerts |
+| Reports | Generate & download official govt PDF reports |
+| Analytics | Centre-level analytics |
+
+---
+
+## Key Components
+- `ImageCapture` — camera + gallery upload with client-side compression (max 1200px, JPEG 0.75)
+- `Layout` — sidebar navigation with role-based menu
+- `AuthContext` — JWT auth with phone/email login
+- `LanguageContext` — Kannada / Hindi / English support
+
+---
+
+## Deploy to Netlify
+1. Build command: `npm run build`
+2. Publish directory: `dist`
+3. Environment variable: `VITE_API_URL=https://your-backend.onrender.com/api`
+4. `public/_redirects` handles SPA routing automatically

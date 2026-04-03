@@ -1,7 +1,7 @@
 {
-  "name": "pashimitra-backend",
+  "name": "jeeva-backend",
   "version": "1.0.0",
-  "description": "Pashimitra - Karnataka Govt AI Livestock Management Backend",
+  "description": "Jeeva - Karnataka Govt AI Livestock Management Backend",
   "main": "server.js",
   "type": "module",
   "scripts": {

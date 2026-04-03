@@ -35,7 +35,7 @@ app.use('/api/predictions',  predictionRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/dashboard',    dashboardRoutes);
 app.use('/api/reports',      reportRoutes);
-app.get('/api/health', (_req, res) => res.json({ status: 'OK', project: 'Pashimitra' }));
+app.get('/api/health', (_req, res) => res.json({ status: 'OK', project: 'Jeeva - Karnataka Govt AI Livestock' }));
 
 // ── Global error handler ──────────────────────────────────────────────────────
 app.use((err, _req, res, _next) => {
