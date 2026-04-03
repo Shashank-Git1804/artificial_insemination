@@ -1,4 +1,4 @@
-# 🌱 Jeeva — ಜೀವ
+# 🐄 Jeeva — ಜೀವ
 ### Karnataka Govt AI Decision Support for Doorstep Artificial Insemination
 > **Jeeva** means *Life* in Kannada — empowering livestock farmers with AI
 
