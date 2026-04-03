@@ -1,0 +1,32 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Uploads (user files)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv*/
+backend/ai_service/__pycache__/
+
+# Model files — keep .pkl and .onnx so AI service works on deploy
+# (comment these out if you want to exclude large model files)
+# *.pkl
+# *.onnx
+
+# Logs
+*.log
+server.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

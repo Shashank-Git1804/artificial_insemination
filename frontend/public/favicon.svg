@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#1a6b3c"/>
+  <!-- Letter J for Jeeva -->
+  <text x="32" y="44" font-family="Georgia, serif" font-size="36" font-weight="bold"
+        text-anchor="middle" fill="#ffffff">J</text>
+  <!-- Small leaf accent -->
+  <ellipse cx="46" cy="18" rx="6" ry="3" fill="#4caf50" transform="rotate(-40 46 18)"/>
+  <ellipse cx="46" cy="18" rx="6" ry="3" fill="#81c784" transform="rotate(-70 46 18)" opacity="0.7"/>
+</svg>
