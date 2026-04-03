@@ -3,6 +3,9 @@ node_modules/
 dist/
 .env
 
+# Training data - not needed, models already compiled in model_artifacts/
+data/
+
 # Uploads (user files)
 backend/uploads/*
 !backend/uploads/.gitkeep
@@ -13,11 +16,6 @@ __pycache__/
 *.pyo
 .venv*/
 backend/ai_service/__pycache__/
-
-# Model files — keep .pkl and .onnx so AI service works on deploy
-# (comment these out if you want to exclude large model files)
-# *.pkl
-# *.onnx
 
 # Logs
 *.log
