@@ -17,12 +17,20 @@ const app = express();
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(compression());                          // gzip all responses
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'http://localhost:5175',
-    process.env.FRONTEND_URL,        // set this on Render to your Vercel URL
-  ].filter(Boolean),
+  origin: (origin, callback) => {
+    const allowed = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+      process.env.FRONTEND_URL,
+    ].filter(Boolean);
+    // Allow Netlify preview deploy URLs (hash--sitename.netlify.app)
+    if (!origin || allowed.includes(origin) || /\.netlify\.app$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '1mb' }));         // limit JSON body size
