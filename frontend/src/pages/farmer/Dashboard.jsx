@@ -16,7 +16,7 @@ const FARMER_CIRCULARS = {
       body:'Foot & Mouth Disease vaccination camp scheduled across all Karnataka districts. Contact your local veterinary officer for dates.',
       date:'Feb 2025', color:'#e3f2fd', border:'#1565c0' },
     { id:3, icon:'🐄', tag:'AI Service', title:'Doorstep AI Service — Free for BPL Farmers',
-      body:'Under KSBB scheme, BPL card holders get free artificial insemination at doorstep. Register on Pashimitra to avail this benefit.',
+      body:'Under KSBB scheme, BPL card holders get free artificial insemination at doorstep. Register on Jeeva to avail this benefit.',
       date:'Mar 2025', color:'#fff8e1', border:'#f57f17' },
     { id:4, icon:'🌾', tag:'Advisory', title:'Summer Livestock Care Advisory',
       body:'Ensure adequate water (50L/day for cattle), shade, and electrolyte supplements during summer. Reduce heat stress to maintain milk yield.',
@@ -33,7 +33,7 @@ const FARMER_CIRCULARS = {
       body:'ಕರ್ನಾಟಕದ ಎಲ್ಲಾ ಜಿಲ್ಲೆಗಳಲ್ಲಿ ಕಾಲು ಮತ್ತು ಬಾಯಿ ರೋಗ ಲಸಿಕೆ ಶಿಬಿರ. ದಿನಾಂಕಕ್ಕಾಗಿ ನಿಮ್ಮ ಸ್ಥಳೀಯ ಪಶು ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.',
       date:'ಫೆಬ್ 2025', color:'#e3f2fd', border:'#1565c0' },
     { id:3, icon:'🐄', tag:'AI ಸೇವೆ', title:'BPL ರೈತರಿಗೆ ಉಚಿತ ಮನೆ ಬಾಗಿಲಿಗೆ AI ಸೇವೆ',
-      body:'KSBB ಯೋಜನೆಯಡಿ BPL ಕಾರ್ಡ್ ಹೊಂದಿರುವ ರೈತರಿಗೆ ಮನೆ ಬಾಗಿಲಿಗೆ ಉಚಿತ ಕೃತಕ ಗರ್ಭಧಾರಣೆ. Pashimitra ನಲ್ಲಿ ನೋಂದಾಯಿಸಿ.',
+      body:'KSBB ಯೋಜನೆಯಡಿ BPL ಕಾರ್ಡ್ ಹೊಂದಿರುವ ರೈತರಿಗೆ ಮನೆ ಬಾಗಿಲಿಗೆ ಉಚಿತ ಕೃತಕ ಗರ್ಭಧಾರಣೆ. Jeeva ನಲ್ಲಿ ನೋಂದಾಯಿಸಿ.',
       date:'ಮಾರ್ 2025', color:'#fff8e1', border:'#f57f17' },
     { id:4, icon:'🌾', tag:'ಸಲಹೆ', title:'ಬೇಸಿಗೆ ಪಶು ಆರೈಕೆ ಸಲಹೆ',
       body:'ದಿನಕ್ಕೆ 50 ಲೀಟರ್ ನೀರು, ನೆರಳು ಮತ್ತು ಎಲೆಕ್ಟ್ರೋಲೈಟ್ ಪೂರಕ ನೀಡಿ. ಹಾಲಿನ ಇಳುವರಿ ಕಾಪಾಡಲು ಶಾಖ ಒತ್ತಡ ಕಡಿಮೆ ಮಾಡಿ.',
@@ -50,7 +50,7 @@ const FARMER_CIRCULARS = {
       body:'कर्नाटक के सभी जिलों में खुरपका-मुंहपका रोग टीकाकरण शिविर। तारीखों के लिए अपने स्थानीय पशु चिकित्सक से संपर्क करें।',
       date:'फर 2025', color:'#e3f2fd', border:'#1565c0' },
     { id:3, icon:'🐄', tag:'AI सेवा', title:'BPL किसानों के लिए मुफ्त घर पर AI सेवा',
-      body:'KSBB योजना के तहत BPL कार्ड धारकों को घर पर मुफ्त कृत्रिम गर्भाधान। Pashimitra पर पंजीकरण करें।',
+      body:'KSBB योजना के तहत BPL कार्ड धारकों को घर पर मुफ्त कृत्रिम गर्भाधान। Jeeva पर पंजीकरण करें।',
       date:'मार 2025', color:'#fff8e1', border:'#f57f17' },
     { id:4, icon:'🌾', tag:'सलाह', title:'गर्मी में पशु देखभाल सलाह',
       body:'प्रतिदिन 50 लीटर पानी, छाया और इलेक्ट्रोलाइट सप्लीमेंट दें। दूध उत्पादन बनाए रखने के लिए गर्मी का तनाव कम करें।',
@@ -115,7 +115,7 @@ export default function FarmerDashboard() {
     <div className="page">
       <div className="page-header">
         <h2>{t('welcome')}, {user?.name} 👋</h2>
-        <p>Karnataka Livestock AI Management — Pashimitra</p>
+        <p>Karnataka Livestock AI Management — Jeeva</p>
       </div>
 
       <div className="section-label">📋 {t('govtCirculars')}</div>

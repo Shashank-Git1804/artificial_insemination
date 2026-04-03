@@ -18,9 +18,9 @@ export default function DigitalReport({ report, onClose }) {
     followUp:     lang==='kn'?'ಮುಂದಿನ ಭೇಟಿ':lang==='hi'?'अगली मुलाकात':'Follow-up',
     centre:       lang==='kn'?'AI ಕೇಂದ್ರ ವಿವರ':lang==='hi'?'AI केंद्र विवरण':'AI Centre Details',
     technician:   lang==='kn'?'ತಂತ್ರಜ್ಞ':lang==='hi'?'तकनीशियन':'Technician',
-    govtNote:     lang==='kn'?'ಈ ವರದಿ ಕರ್ನಾಟಕ ಸರ್ಕಾರದ Pashimitra ಪ್ರಣಾಳಿಕೆ ಮೂಲಕ ಡಿಜಿಟಲ್ ಆಗಿ ಪ್ರಮಾಣೀಕರಿಸಲಾಗಿದೆ':
-                  lang==='hi'?'यह रिपोर्ट कर्नाटक सरकार के Pashimitra पोर्टल के माध्यम से डिजिटल रूप से प्रमाणित है':
-                  'This report is digitally certified through Karnataka Govt Pashimitra Portal',
+    govtNote:     lang==='kn'?'ಈ ವರದಿ ಕರ್ನಾಟಕ ಸರ್ಕಾರದ Jeeva ಪ್ರಣಾಳಿಕೆ ಮೂಲಕ ಡಿಜಿಟಲ್ ಆಗಿ ಪ್ರಮಾಣೀಕರಿಸಲಾಗಿದೆ':
+                  lang==='hi'?'यह रिपोर्ट कर्नाटक सरकार के Jeeva पोर्टल के माध्यम से डिजिटल रूप से प्रमाणित है':
+                  'This report is digitally certified through Karnataka Govt Jeeva Portal',
     print:        lang==='kn'?'ಮುದ್ರಿಸಿ':lang==='hi'?'प्रिंट करें':'Print / Download',
     close:        lang==='kn'?'ಮುಚ್ಚಿ':lang==='hi'?'बंद करें':'Close',
   };
@@ -47,7 +47,7 @@ export default function DigitalReport({ report, onClose }) {
               <div>
                 <div className="report-govt-name">Government of Karnataka</div>
                 <div className="report-dept">Department of Animal Husbandry & Veterinary Services</div>
-                <div className="report-portal">Pashimitra — ಪಶುಮಿತ್ರ Digital Portal</div>
+                <div className="report-portal">Jeeva — ಜೀವ Digital Portal</div>
               </div>
             </div>
             <div className="report-meta">
@@ -188,13 +188,13 @@ export default function DigitalReport({ report, onClose }) {
             <div className="report-seal">
               <div className="seal-circle">
                 <div className="seal-text">GOVT OF KARNATAKA</div>
-                <div className="seal-sub">PASHIMITRA</div>
+                <div className="seal-sub">JEEVA</div>
                 <div className="seal-year">2025</div>
               </div>
             </div>
             <div className="report-footer-text">
               <div className="report-verified-text">✅ {L.govtNote}</div>
-              <div className="report-qr-note">Report No: {report.reportNumber} | Verify at: pashimitra.karnataka.gov.in</div>
+              <div className="report-qr-note">Report No: {report.reportNumber} | Verify at: jeeva.karnataka.gov.in</div>
             </div>
             <div className="report-signature">
               <div className="sig-line"></div>

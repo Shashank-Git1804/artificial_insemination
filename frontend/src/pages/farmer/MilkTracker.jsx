@@ -4,7 +4,7 @@ import api from '../../api/axios';
 import toast from 'react-hot-toast';
 import { useLang } from '../../context/LanguageContext';
 
-const STORAGE_KEY = 'pashimitra_milk_records';
+const STORAGE_KEY = 'jeeva_milk_records';
 
 function loadRecords() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }

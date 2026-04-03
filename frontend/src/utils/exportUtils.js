@@ -9,7 +9,7 @@ function govtHeader(doc, title) {
   doc.rect(0, 0, 210, 30, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(13); doc.setFont('helvetica', 'bold');
-  doc.text('Government of Karnataka — Pashimitra', 105, 10, { align: 'center' });
+  doc.text('Government of Karnataka — Jeeva', 105, 10, { align: 'center' });
   doc.setFontSize(9); doc.setFont('helvetica', 'normal');
   doc.text('Department of Animal Husbandry & Veterinary Services', 105, 17, { align: 'center' });
   doc.setFontSize(11); doc.setFont('helvetica', 'bold');
@@ -27,7 +27,7 @@ function govtFooter(doc) {
     doc.line(10, 285, 200, 285);
     doc.setFontSize(7); doc.setTextColor(120);
     doc.text(
-      `Pashimitra Portal | Karnataka Govt | ${new Date().toLocaleDateString('en-IN')} | Page ${i}/${pages}`,
+      `Jeeva Portal | Karnataka Govt | ${new Date().toLocaleDateString('en-IN')} | Page ${i}/${pages}`,
       105, 290, { align: 'center' }
     );
   }
@@ -139,12 +139,12 @@ export function exportReportPDF(report, lang = 'en') {
   doc.setFillColor(232, 245, 233);
   doc.rect(14, sy, 182, 16, 'F');
   doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(26, 107, 60);
-  doc.text('DIGITALLY CERTIFIED — Government of Karnataka Pashimitra Portal', 105, sy + 6, { align: 'center' });
+  doc.text('DIGITALLY CERTIFIED — Government of Karnataka Jeeva Portal', 105, sy + 6, { align: 'center' });
   doc.setFont('helvetica', 'normal');
-  doc.text(`Verify: pashimitra.karnataka.gov.in | ${report.reportNumber}`, 105, sy + 12, { align: 'center' });
+  doc.text(`Verify: jeeva.karnataka.gov.in | ${report.reportNumber}`, 105, sy + 12, { align: 'center' });
 
   govtFooter(doc);
-  doc.save(`Pashimitra_Report_${report.reportNumber}.pdf`);
+  doc.save(`Jeeva_Report_${report.reportNumber}.pdf`);
 }
 
 // ── Export Analytics as PDF ───────────────────────────────────────────────────
@@ -202,7 +202,7 @@ export function exportAnalyticsPDF(data, role, title = 'Analytics Report') {
   }
 
   govtFooter(doc);
-  doc.save(`Pashimitra_Analytics_${new Date().toISOString().split('T')[0]}.pdf`);
+  doc.save(`Jeeva_Analytics_${new Date().toISOString().split('T')[0]}.pdf`);
 }
 
 // ── Export Analytics as Excel ─────────────────────────────────────────────────
@@ -214,7 +214,7 @@ export function exportAnalyticsExcel(data, role) {
 
   if (role === 'ai_centre') {
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([
-      ['Pashimitra — Karnataka Govt Analytics'],
+      ['Jeeva — Karnataka Govt Analytics'],
       ['Generated', new Date().toLocaleDateString('en-IN')],
       [],
       ['Metric', 'Value'],
@@ -231,7 +231,7 @@ export function exportAnalyticsExcel(data, role) {
     addSheet('Heat by Species', data.heatBySpecies?.map(h => ({ Species: h._id, 'Heat Detections': h.count })));
   } else {
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([
-      ['Pashimitra — Farmer Analytics'],
+      ['Jeeva — Farmer Analytics'],
       ['Generated', new Date().toLocaleDateString('en-IN')],
       [],
       ['Metric', 'Value'],
@@ -245,7 +245,7 @@ export function exportAnalyticsExcel(data, role) {
   }
 
   const buf = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-  saveAs(new Blob([buf], { type: 'application/octet-stream' }), `Pashimitra_Analytics_${new Date().toISOString().split('T')[0]}.xlsx`);
+  saveAs(new Blob([buf], { type: 'application/octet-stream' }), `Jeeva_Analytics_${new Date().toISOString().split('T')[0]}.xlsx`);
 }
 
 export function exportCSV(rows, filename) {

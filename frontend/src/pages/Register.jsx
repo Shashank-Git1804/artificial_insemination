@@ -44,8 +44,8 @@ export default function Register() {
       <div className="auth-card wide">
         <div className="auth-header">
           <div className="auth-logo">🐄</div>
-          <h1>Pashimitra</h1>
-          <p className="auth-subtitle">ಪಶುಮಿತ್ರ — Register</p>
+          <h1>Jeeva</h1>
+          <p className="auth-subtitle">ಜೀವ — Register</p>
         </div>
 
         <div className="role-toggle">

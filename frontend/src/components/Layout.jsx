@@ -46,8 +46,8 @@ export default function Layout() {
     <div className="layout">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <div className="logo">🐄 Pashimitra</div>
-          <div className="logo-sub">ಪಶುಮಿತ್ರ</div>
+          <div className="logo">🐄 Jeeva</div>
+          <div className="logo-sub">ಜೀವ</div>
           <div className="govt-tag">Karnataka Govt</div>
         </div>
 

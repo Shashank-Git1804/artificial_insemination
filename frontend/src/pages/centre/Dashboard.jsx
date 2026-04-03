@@ -12,10 +12,10 @@ const CENTRE_CIRCULARS = {
       body:'Minimum motility threshold raised to 60% post-thaw. Reject straws below this threshold. Report quality issues to KSBB within 24 hours.',
       date:'Feb 2025', color:'#e3f2fd', border:'#1565c0' },
     { id:3, icon:'📊', tag:'Target', title:'Q1 2025 AI Target — Karnataka',
-      body:'State target: 8 lakh AI services by March 2025. Each centre must achieve minimum 200 AI/month. Submit monthly reports via Pashimitra portal.',
+      body:'State target: 8 lakh AI services by March 2025. Each centre must achieve minimum 200 AI/month. Submit monthly reports via Jeeva portal.',
       date:'Mar 2025', color:'#fff8e1', border:'#f57f17' },
     { id:4, icon:'🏆', tag:'Incentive', title:'Performance Incentive Scheme',
-      body:'Centres achieving >70% conception rate eligible for ₹25,000 annual incentive. Data tracked via Pashimitra. Ensure all outcomes are recorded.',
+      body:'Centres achieving >70% conception rate eligible for ₹25,000 annual incentive. Data tracked via Jeeva. Ensure all outcomes are recorded.',
       date:'Apr 2025', color:'#f3e5f5', border:'#6a1b9a' },
     { id:5, icon:'⚠️', tag:'Disease Alert', title:'Lumpy Skin Disease — High Alert',
       body:'LSD outbreak reported in Belagavi & Dharwad districts. Suspend AI in affected areas. Vaccinate all cattle within 5km radius of outbreak.',
@@ -124,7 +124,7 @@ export default function CentreDashboard() {
     <div className="page">
       <div className="page-header">
         <h2>🏥 {user?.centreName || 'AI Centre'} {L.title}</h2>
-        <p>Karnataka Govt — Pashimitra AI Insemination Centre</p>
+        <p>Karnataka Govt — Jeeva AI Insemination Centre</p>
       </div>
 
       <div className="section-label">📋 {L.circulars}</div>

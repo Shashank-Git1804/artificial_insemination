@@ -31,8 +31,8 @@ export default function Login() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">🐄</div>
-          <h1>Pashimitra</h1>
-          <p className="auth-subtitle">ಪಶುಮಿತ್ರ — Karnataka Govt Livestock AI</p>
+          <h1>Jeeva</h1>
+          <p className="auth-subtitle">ಜೀವ — Karnataka Govt Livestock AI</p>
         </div>
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">

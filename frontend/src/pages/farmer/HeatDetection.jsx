@@ -184,7 +184,7 @@ function StageResult({ stageResult, cycleInfo, lang }) {
                 <span className="step-num">3</span>
                 <div>
                   <div className="step-title">Book Appointment</div>
-                  <div className="step-desc">Via Pashimitra app</div>
+                  <div className="step-desc">Via Jeeva app</div>
                 </div>
               </div>
             </div>
@@ -285,7 +285,7 @@ export default function HeatDetection() {
     <div className="page">
       <div className="page-header">
         <h2>🌡️ {t('heatDetectionTitle')}</h2>
-        <p>3-Stage AI Heat Detection — Karnataka Govt Pashimitra</p>
+        <p>3-Stage AI Heat Detection — Karnataka Govt Jeeva</p>
       </div>
 
       {/* Cycle banner */}

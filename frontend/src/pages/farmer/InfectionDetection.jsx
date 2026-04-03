@@ -258,7 +258,7 @@ export default function InfectionDetection() {
     <div className="page">
       <div className="page-header">
         <h2>🔬 Health & Infection Check</h2>
-        <p>3-Stage AI Reproductive Health Screening — Karnataka Govt Pashimitra</p>
+        <p>3-Stage AI Reproductive Health Screening — Karnataka Govt Jeeva</p>
       </div>
 
       {/* Input form */}

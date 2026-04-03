@@ -106,7 +106,7 @@ export default function CentreReports() {
           <div className="report-govt-banner">
             <div className="rgb-left">🏛️</div>
             <div>
-              <div className="rgb-title">Government of Karnataka — Pashimitra</div>
+              <div className="rgb-title">Government of Karnataka — Jeeva</div>
               <div className="rgb-sub">Official Animal Health & Service Report Form</div>
             </div>
             <div className="rgb-seal">✅ Govt Validated</div>
