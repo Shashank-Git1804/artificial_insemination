@@ -1,4 +1,5 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
@@ -13,6 +14,18 @@ export default function Layout() {
   const { user, logout } = useAuth();
   const { t, lang, changeLang } = useLang();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
+
+  // Close sidebar on resize to desktop
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 768) setSidebarOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   const farmerNav = [
     { to: '/farmer/dashboard',           label: t('dashboard'),     icon: '🏠' },
@@ -44,9 +57,20 @@ export default function Layout() {
 
   return (
     <div className="layout">
-      <aside className="sidebar">
+      {/* Hamburger — mobile only */}
+      <button className="hamburger" onClick={() => setSidebarOpen(o => !o)} aria-label="Menu">
+        {sidebarOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Overlay — mobile only */}
+      <div
+        className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <div className="logo">🐄 Jeeva</div>
+          <div className="logo">🌱 Jeeva</div>
           <div className="logo-sub">ಜೀವ</div>
           <div className="govt-tag">Karnataka Govt</div>
         </div>
