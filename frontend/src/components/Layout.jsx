@@ -10,6 +10,120 @@ const LANGS = [
   { code: 'hi', label: 'हिंदी' },
 ];
 
+function AppHeader({ user, lang, onMenuClick }) {
+  return (
+    <header className="app-header">
+      <div className="app-header-left">
+        <button className="hamburger-inline" onClick={onMenuClick} aria-label="Menu">☰</button>
+        <div className="app-header-brand">
+          <span className="app-header-logo">🌱</span>
+          <div>
+            <div className="app-header-title">Jeeva <span className="app-header-kannada">ಜೀವ</span></div>
+            <div className="app-header-sub">Karnataka Govt · AI Livestock Management</div>
+          </div>
+        </div>
+      </div>
+      <div className="app-header-right">
+        <div className="app-header-badge">
+          <span>🏛️</span>
+          <span className="app-header-badge-text">
+            {lang === 'kn' ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರ' : lang === 'hi' ? 'कर्नाटक सरकार' : 'Govt of Karnataka'}
+          </span>
+        </div>
+        {user && (
+          <div className="app-header-user">
+            <div className="app-header-avatar">{user.name?.[0]?.toUpperCase()}</div>
+            <span className="app-header-username">{user.name}</span>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
+
+function AppFooter({ lang }) {
+  return (
+    <footer className="app-footer">
+      <div className="app-footer-inner">
+
+        {/* Brand */}
+        <div className="footer-brand">
+          <div className="footer-brand-name">🌱 Jeeva — ಜೀವ</div>
+          <div className="footer-brand-desc">
+            {lang === 'kn'
+              ? 'ಕರ್ನಾಟಕ ಸರ್ಕಾರದ AI ಪಶು ನಿರ್ವಹಣಾ ಪೋರ್ಟಲ್'
+              : lang === 'hi'
+              ? 'कर्नाटक सरकार का AI पशु प्रबंधन पोर्टल'
+              : 'Karnataka Govt AI Livestock Management Portal'}
+          </div>
+          <div className="footer-brand-ref">Project Ref: 49S_BE_4806 · AMC Engineering College</div>
+        </div>
+
+        {/* Helpline */}
+        <div className="footer-helpline">
+          <div className="footer-section-title">
+            📞 {lang === 'kn' ? 'ಸಹಾಯವಾಣಿ' : lang === 'hi' ? 'हेल्पलाइन' : 'Helpline'}
+          </div>
+          <a href="tel:18004258585" className="footer-helpline-number">
+            🆓 1800-425-8585
+          </a>
+          <div className="footer-helpline-note">
+            {lang === 'kn' ? 'ಉಚಿತ · ಸೋಮ–ಶನಿ · ಬೆಳಿಗ್ಗೆ 9 – ಸಂಜೆ 6'
+              : lang === 'hi' ? 'निःशुल्क · सोम–शनि · सुबह 9 – शाम 6'
+              : 'Toll Free · Mon–Sat · 9 AM – 6 PM'}
+          </div>
+          <a href="tel:08022213761" className="footer-helpline-alt">
+            📱 080-2221-3761
+          </a>
+          <div className="footer-helpline-note">
+            {lang === 'kn' ? 'ಪಶು ಸಂಗೋಪನಾ ಇಲಾಖೆ, ಬೆಂಗಳೂರು'
+              : lang === 'hi' ? 'पशुपालन विभाग, बेंगलुरु'
+              : 'Dept of Animal Husbandry, Bengaluru'}
+          </div>
+        </div>
+
+        {/* Quick links */}
+        <div className="footer-links">
+          <div className="footer-section-title">
+            🔗 {lang === 'kn' ? 'ಸಂಪರ್ಕ' : lang === 'hi' ? 'संपर्क' : 'Contact'}
+          </div>
+          <div className="footer-link-item">
+            <span>📧</span>
+            <a href="mailto:ahvs@karnataka.gov.in">ahvs@karnataka.gov.in</a>
+          </div>
+          <div className="footer-link-item">
+            <span>🌐</span>
+            <a href="https://ahvs.karnataka.gov.in" target="_blank" rel="noreferrer">
+              ahvs.karnataka.gov.in
+            </a>
+          </div>
+          <div className="footer-link-item">
+            <span>📍</span>
+            <span>
+              {lang === 'kn' ? 'ಪಶು ಸಂಗೋಪನಾ ಭವನ, ಬೆಂಗಳೂರು'
+                : lang === 'hi' ? 'पशुपालन भवन, बेंगलुरु'
+                : 'Pashu Sampada Bhavan, Bengaluru'}
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Government of Karnataka · Jeeva Portal</span>
+        <span className="footer-bottom-sep">·</span>
+        <span>
+          {lang === 'kn' ? 'ಎಲ್ಲ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ'
+            : lang === 'hi' ? 'सर्वाधिकार सुरक्षित'
+            : 'All rights reserved'}
+        </span>
+        <span className="footer-bottom-sep">·</span>
+        <span>v1.0 · AMC Engineering College, ISE Dept</span>
+      </div>
+    </footer>
+  );
+}
+
 export default function Layout() {
   const { user, logout } = useAuth();
   const { t, lang, changeLang } = useLang();
@@ -17,10 +131,8 @@ export default function Layout() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Close sidebar on route change (mobile)
   useEffect(() => { setSidebarOpen(false); }, [location.pathname]);
 
-  // Close sidebar on resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth > 768) setSidebarOpen(false); };
     window.addEventListener('resize', onResize);
@@ -57,16 +169,11 @@ export default function Layout() {
 
   return (
     <div className="layout">
-      {/* Hamburger — mobile only */}
-      <button className="hamburger" onClick={() => setSidebarOpen(o => !o)} aria-label="Menu">
-        {sidebarOpen ? '✕' : '☰'}
-      </button>
+      {/* Top header */}
+      <AppHeader user={user} lang={lang} onMenuClick={() => setSidebarOpen(o => !o)} />
 
-      {/* Overlay — mobile only */}
-      <div
-        className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
-        onClick={() => setSidebarOpen(false)}
-      />
+      {/* Sidebar overlay */}
+      <div className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`} onClick={() => setSidebarOpen(false)} />
 
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -108,9 +215,12 @@ export default function Layout() {
         </button>
       </aside>
 
-      <main className="main-content">
-        <Outlet />
-      </main>
+      <div className="main-wrapper">
+        <main className="main-content">
+          <Outlet />
+        </main>
+        <AppFooter lang={lang} />
+      </div>
     </div>
   );
 }
