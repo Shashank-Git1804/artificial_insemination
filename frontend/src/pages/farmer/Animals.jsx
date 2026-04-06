@@ -302,8 +302,8 @@ export default function FarmerAnimals() {
         {animals.map(a => (
           <div key={a._id} className="animal-card">
             <div className="animal-img">
-              {a.imageUrl
-                ? <img src={`http://localhost:5000${a.imageUrl}`} alt={a.name} />
+              {a.imageData || a.imageUrl
+                ? <img src={a.imageData || `http://localhost:5000${a.imageUrl}`} alt={a.name} />
                 : <span className="animal-emoji">{SPECIES_EMOJI[a.species]}</span>}
             </div>
             <div className="animal-gender-badge">{a.gender === 'male' ? '♂️' : '♀️'}</div>

@@ -271,16 +271,17 @@ def extract_image_features(image_bytes: bytes) -> dict:
     # Redness: heat causes vulva redness — use wider normalization for close-ups
     mean_color     = np.mean(rgb, axis=(0, 1))
     red_prominence = mean_color[0] - np.mean(mean_color)
-    vulva_redness  = float(np.clip(red_prominence / 30, 0.0, 1.0))  # /30 more sensitive than /50
+    vulva_redness  = float(np.clip(red_prominence / 20, 0.0, 1.0))  # /20 more sensitive
 
     # Moisture: high saturation pixels indicate discharge/moisture
-    moisture_level = float(np.mean(hsv[:, :, 1] > 100) / 255)  # lowered threshold from 150
+    moisture_level = float(np.mean(hsv[:, :, 1] > 80) / 1.0)  # lowered threshold, full ratio
+    moisture_level = float(np.clip(moisture_level, 0.0, 1.0))
 
     # Swelling: more contours = more irregular tissue = swelling
     blur        = cv2.GaussianBlur(gray, (5, 5), 0)
     _, binary   = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    vulva_swelling = float(min(len(contours) / 80, 1.0))  # /80 more sensitive than /100
+    vulva_swelling = float(min(len(contours) / 60, 1.0))  # /60 more sensitive
 
     # Edge density
     edges       = cv2.Canny(gray, 50, 150)
@@ -288,10 +289,13 @@ def extract_image_features(image_bytes: bytes) -> dict:
 
     # Texture
     laplacian      = cv2.Laplacian(gray, cv2.CV_64F)
-    texture_change = float(min(np.sqrt(np.mean(laplacian ** 2)) / 800, 1.0))  # /800 more sensitive
+    texture_change = float(min(np.sqrt(np.mean(laplacian ** 2)) / 600, 1.0))  # /600 more sensitive
 
-    # Vision model score: weighted combination for heat indicators
-    vision_score = float((vulva_redness * 0.5 + moisture_level * 0.3 + vulva_swelling * 0.2))
+    # Vision model score: weighted combination — redness is the strongest heat indicator
+    vision_score = float(np.clip(
+        vulva_redness * 0.45 + moisture_level * 0.30 + vulva_swelling * 0.15 + texture_change * 0.10,
+        0.0, 1.0
+    ))
 
     return {
         "activity_spike":     float(min(vulva_redness + texture_change, 1.0)),
@@ -538,28 +542,50 @@ async def predict_heat(
     csv_factors = {"activity_spike": activity_spike, "restlessness": restlessness,
                    "mounting_events": mounting_events, "vision_model_score": vision_model_score}
 
-    tab_df   = pd.DataFrame([{"species":species,"activity_spike":activity_spike,
-                "restlessness":restlessness,"mounting_events":mounting_events,
-                "vision_model_score":vision_model_score}])
-    tab_prob = float(heat_model.predict_proba(tab_df)[0][1])
+    cycle = CYCLES.get(species, {})
 
-    # Stage-based probability calculation
     if stage == "csv":
+        # Observations only — ignore image entirely
+        tab_df   = pd.DataFrame([{"species":species,"activity_spike":activity_spike,
+                    "restlessness":restlessness,"mounting_events":mounting_events,
+                    "vision_model_score":vision_model_score}])
+        tab_prob   = float(heat_model.predict_proba(tab_df)[0][1])
         final_prob = round(tab_prob, 4)
+        report_csv_factors = csv_factors
+        report_img_factors = None
+
     elif stage == "photo":
-        final_prob = round(img_prob, 4) if img_prob is not None else round(tab_prob, 4)
+        # Photo only — observations are zeroed out, result is purely image-driven
+        if img_prob is None:
+            raise HTTPException(422, detail={
+                "error": "No image provided for photo analysis. Please upload a photo.",
+                "rule_failed": None,
+                "action": "Upload a clear photo of the animal's reproductive area.",
+            })
+        # Run tabular model with zeroed observations so photo result is independent
+        zero_df    = pd.DataFrame([{"species":species,"activity_spike":0.0,
+                    "restlessness":0.0,"mounting_events":0.0,"vision_model_score":0.0}])
+        zero_prob  = float(heat_model.predict_proba(zero_df)[0][1])
+        # Photo probability: 80% image model + 20% zero-observation baseline
+        final_prob = round(img_prob * 0.80 + zero_prob * 0.20, 4)
+        report_csv_factors = None
+        report_img_factors = img_analysis
+
     else:  # combined
+        tab_df   = pd.DataFrame([{"species":species,"activity_spike":activity_spike,
+                    "restlessness":restlessness,"mounting_events":mounting_events,
+                    "vision_model_score":vision_model_score}])
+        tab_prob   = float(heat_model.predict_proba(tab_df)[0][1])
         final_prob = round(tab_prob*0.55 + img_prob*0.45, 4) if img_prob is not None else round(tab_prob, 4)
+        report_csv_factors = csv_factors
+        report_img_factors = img_analysis
 
     is_heat    = final_prob >= 0.5
     confidence = round(final_prob * 100, 1)
-    cycle      = CYCLES.get(species, {})
 
     # Generate detailed factor report
-    report_csv_factors  = csv_factors if stage in ("csv", "combined") else None
-    report_img_factors  = img_analysis if stage in ("photo", "combined") else None
-    detailed_report     = generate_heat_report(species, is_heat, final_prob,
-                                               report_csv_factors, report_img_factors, cycle)
+    detailed_report = generate_heat_report(species, is_heat, final_prob,
+                                           report_csv_factors, report_img_factors, cycle)
 
     rec = (f"HEAT DETECTED - {species.upper()} | Confidence: {confidence}%\n"
            f"Best AI window: {cycle.get('best_ai_window','N/A')}\n"

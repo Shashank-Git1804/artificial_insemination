@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
+import fs from 'fs';
 import Animal from '../models/Animal.js';
 import { protect, restrictTo } from '../middleware/auth.js';
 
@@ -8,9 +8,16 @@ const router = express.Router();
 
 const upload = multer({
   dest: 'uploads/',
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 3 * 1024 * 1024 },
   fileFilter: (req, file, cb) => cb(null, true),
 });
+
+function toBase64(file) {
+  const buf = fs.readFileSync(file.path);
+  const mime = file.mimetype || 'image/jpeg';
+  fs.unlink(file.path, () => {});
+  return `data:${mime};base64,${buf.toString('base64')}`;
+}
 
 router.use(protect);
 
@@ -23,10 +30,11 @@ router.get('/', async (req, res) => {
 router.post('/', restrictTo('farmer'), upload.single('image'), async (req, res) => {
   try {
     const data = { ...req.body, farmer: req.user._id };
-    if (req.file) data.imageUrl = `/${req.file.path.replace(/\\/g, '/')}`;
+    if (req.file) data.imageData = toBase64(req.file);
     const animal = await Animal.create(data);
     res.status(201).json(animal);
   } catch (err) {
+    if (req.file) fs.unlink(req.file.path, () => {});
     res.status(400).json({ message: err.message });
   }
 });
@@ -38,14 +46,19 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', restrictTo('farmer'), upload.single('image'), async (req, res) => {
-  const data = { ...req.body };
-  if (req.file) data.imageUrl = `/uploads/${req.file.filename}`;
-  const animal = await Animal.findOneAndUpdate(
-    { _id: req.params.id, farmer: req.user._id },
-    data, { returnDocument: 'after' }
-  );
-  if (!animal) return res.status(404).json({ message: 'Animal not found' });
-  res.json(animal);
+  try {
+    const data = { ...req.body };
+    if (req.file) data.imageData = toBase64(req.file);
+    const animal = await Animal.findOneAndUpdate(
+      { _id: req.params.id, farmer: req.user._id },
+      data, { returnDocument: 'after' }
+    );
+    if (!animal) return res.status(404).json({ message: 'Animal not found' });
+    res.json(animal);
+  } catch (err) {
+    if (req.file) fs.unlink(req.file.path, () => {});
+    res.status(400).json({ message: err.message });
+  }
 });
 
 router.delete('/:id', restrictTo('farmer'), async (req, res) => {

@@ -242,12 +242,16 @@ export default function HeatDetection() {
     setLoadingStage(stage);
     try {
       const fd = new FormData();
-      fd.append('animalId',        form.animalId);
-      fd.append('activitySpike',   toFloat(form.activity));
-      fd.append('restlessness',    toFloat(form.restlessness));
-      fd.append('mountingEvents',  toFloat(form.mounting));
-      fd.append('visionModelScore',toFloat(form.vision));
-      fd.append('stage',           stage);
+      fd.append('animalId', form.animalId);
+      fd.append('stage',    stage);
+
+      // For photo stage: zero out all observation fields so result is image-only
+      const isPhotoOnly = stage === 'photo';
+      fd.append('activitySpike',    isPhotoOnly ? '0' : toFloat(form.activity).toString());
+      fd.append('restlessness',     isPhotoOnly ? '0' : toFloat(form.restlessness).toString());
+      fd.append('mountingEvents',   isPhotoOnly ? '0' : toFloat(form.mounting).toString());
+      fd.append('visionModelScore', isPhotoOnly ? '0' : toFloat(form.vision).toString());
+
       if (image && stage !== 'csv') fd.append('image', image);
 
       const { data } = await api.post('/predictions/heat', fd);

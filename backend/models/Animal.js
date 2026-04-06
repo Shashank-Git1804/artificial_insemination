@@ -14,7 +14,8 @@ const animalSchema = new mongoose.Schema({
   lastAIDate: Date,
   pregnancyStatus: { type: String, enum: ['open', 'pregnant', 'unknown'], default: 'unknown' },
   healthStatus: { type: String, enum: ['healthy', 'sick', 'under_treatment'], default: 'healthy' },
-  imageUrl: String,
+  imageUrl:  String,   // kept for backward compat
+  imageData: String,   // base64 data URI stored in DB
   notes: String,
 }, { timestamps: true });
 

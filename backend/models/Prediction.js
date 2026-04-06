@@ -7,7 +7,8 @@ const predictionSchema = new mongoose.Schema({
   result:  { type: String, enum: ['positive', 'negative'], required: true },
   confidence:     Number,
   recommendation: String,
-  imageUrl:       String,
+  imageUrl:       String,   // kept for backward compat
+  imageData:      String,   // base64 data URI stored in DB
   stage:          { type: String, enum: ['csv', 'photo', 'combined'], default: 'combined' },
   // Heat inputs
   activitySpike: Number, restlessness: Number,

@@ -29,7 +29,7 @@ router.use(protect);
 // ── Check if Python AI service is running ────────────────────────────────────
 async function isAIServiceUp() {
   try {
-    const r = await fetch(`${AI_SERVICE}/health`, { signal: AbortSignal.timeout(2000) });
+    const r = await fetch(`${AI_SERVICE}/health`, { signal: AbortSignal.timeout(10000) });
     return r.ok;
   } catch {
     return false;
@@ -44,7 +44,7 @@ async function callAI(endpoint, fields, fileBuffer) {
 
   const res = await fetch(`${AI_SERVICE}${endpoint}`, {
     method: 'POST', body: fd,
-    signal: AbortSignal.timeout(15000)
+    signal: AbortSignal.timeout(30000)
   });
 
   if (!res.ok) {
@@ -106,6 +106,10 @@ router.post('/heat', restrictTo('farmer'), uploadSingle, async (req, res) => {
       });
     }
 
+    const imageData = fileBuffer
+      ? `data:image/jpeg;base64,${fileBuffer.toString('base64')}`
+      : undefined;
+
     const prediction = await Prediction.create({
       animal:           animalId,
       farmer:           req.user._id,
@@ -117,7 +121,7 @@ router.post('/heat', restrictTo('farmer'), uploadSingle, async (req, res) => {
       result:           aiResult.result,
       confidence:       aiResult.confidence,
       recommendation:   aiResult.recommendation,
-      imageUrl:         req.file ? `/${req.file.path.replace(/\\/g, '/')}` : undefined,
+      imageData,
     });
 
     if (aiResult.result === 'positive') {
@@ -174,6 +178,10 @@ router.post('/infection', restrictTo('farmer'), uploadSingle, async (req, res) =
       });
     }
 
+    const imageData = fileBuffer
+      ? `data:image/jpeg;base64,${fileBuffer.toString('base64')}`
+      : undefined;
+
     const prediction = await Prediction.create({
       animal:                 animalId,
       farmer:                 req.user._id,
@@ -188,7 +196,7 @@ router.post('/infection', restrictTo('farmer'), uploadSingle, async (req, res) =
       result:                 aiResult.result,
       confidence:             aiResult.confidence,
       recommendation:         aiResult.recommendation,
-      imageUrl:               req.file ? `/${req.file.path.replace(/\\/g, '/')}` : undefined,
+      imageData,
     });
 
     if (aiResult.result === 'positive') {
